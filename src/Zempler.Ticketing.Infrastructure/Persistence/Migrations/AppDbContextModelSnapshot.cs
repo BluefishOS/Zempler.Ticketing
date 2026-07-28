@@ -19,9 +19,9 @@ namespace Zempler.Ticketing.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Zempler.Ticketing.Domain.Entities.Event", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
@@ -41,12 +41,12 @@ namespace Zempler.Ticketing.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Zempler.Ticketing.Domain.Entities.Ticket", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("EventId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("HolderName")
                         .HasMaxLength(100)

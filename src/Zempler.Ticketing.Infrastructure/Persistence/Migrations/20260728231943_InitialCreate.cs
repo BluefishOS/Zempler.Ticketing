@@ -15,8 +15,7 @@ namespace Zempler.Ticketing.Infrastructure.Persistence.Migrations
                 name: "Events",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     TotalSeats = table.Column<int>(type: "INTEGER", nullable: false)
@@ -30,9 +29,8 @@ namespace Zempler.Ticketing.Infrastructure.Persistence.Migrations
                 name: "Tickets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    EventId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    EventId = table.Column<Guid>(type: "TEXT", nullable: false),
                     SeatNumber = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     HolderName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),

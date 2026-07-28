@@ -23,7 +23,7 @@ internal class TicketService(IApplicationDbContext context) : ITicketService
         return events.Select(e => e.MapToEventDto(now));
     }
 
-    public async Task<EventDto> GetEventByIdAsync(int eventId, CancellationToken ct = default)
+    public async Task<EventDto> GetEventByIdAsync(Guid eventId, CancellationToken ct = default)
     {
         var ev = await context.Events
             .Include(e => e.Tickets)
@@ -34,7 +34,7 @@ internal class TicketService(IApplicationDbContext context) : ITicketService
         return ev.MapToEventDto(DateTime.UtcNow);
     }
 
-    public async Task<TicketDto> ReserveTicketAsync(int eventId, int ticketId, string holderName, CancellationToken ct = default)
+    public async Task<TicketDto> ReserveTicketAsync(Guid eventId, Guid ticketId, string holderName, CancellationToken ct = default)
     {
         // 1. Fetch Ticket (tracked by EF Core so we can update it and verify concurrency)
         var ticket = await context.Tickets
@@ -52,7 +52,7 @@ internal class TicketService(IApplicationDbContext context) : ITicketService
         return ticket.MapToTicketDto(now);
     }
 
-    public async Task<TicketDto> PurchaseTicketAsync(int eventId, int ticketId, string holderName, CancellationToken ct = default)
+    public async Task<TicketDto> PurchaseTicketAsync(Guid eventId, Guid ticketId, string holderName, CancellationToken ct = default)
     {
         var ticket = await context.Tickets
             .FirstOrDefaultAsync(t => t.Id == ticketId && t.EventId == eventId, ct)
@@ -68,7 +68,7 @@ internal class TicketService(IApplicationDbContext context) : ITicketService
         return ticket.MapToTicketDto(now);
     }
 
-    public async Task CancelReservationAsync(int eventId, int ticketId, CancellationToken ct = default)
+    public async Task CancelReservationAsync(Guid eventId, Guid ticketId, CancellationToken ct = default)
     {
         var ticket = await context.Tickets
             .FirstOrDefaultAsync(t => t.Id == ticketId && t.EventId == eventId, ct)

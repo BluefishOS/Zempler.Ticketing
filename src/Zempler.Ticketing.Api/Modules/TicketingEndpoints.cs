@@ -23,7 +23,7 @@ public class TicketingEndpoints : ICarterModule
         .Produces<IEnumerable<EventDto>>(StatusCodes.Status200OK);
 
         // GET /api/events/{id}
-        group.MapGet("/{id:int}", async (int id, [FromServices] ITicketService ticketService, CancellationToken ct) =>
+        group.MapGet("/{id:guid}", async (Guid id, [FromServices] ITicketService ticketService, CancellationToken ct) =>
         {
             var eventDto = await ticketService.GetEventByIdAsync(id, ct);
             return Results.Ok(eventDto);
@@ -34,9 +34,9 @@ public class TicketingEndpoints : ICarterModule
         .ProducesProblem(StatusCodes.Status404NotFound);
 
         // POST /api/events/{eventId}/tickets/{ticketId}/reserve
-        group.MapPost("/{eventId:int}/tickets/{ticketId:int}/reserve", async (
-            int eventId,
-            int ticketId,
+        group.MapPost("/{eventId:guid}/tickets/{ticketId:guid}/reserve", async (
+            Guid eventId,
+            Guid ticketId,
             [FromBody] ReserveTicketRequest request,
             [FromServices] ITicketService ticketService,
             CancellationToken ct) =>
@@ -52,9 +52,9 @@ public class TicketingEndpoints : ICarterModule
         .ProducesProblem(StatusCodes.Status409Conflict); // Concurrency failure
 
         // POST /api/events/{eventId}/tickets/{ticketId}/purchase
-        group.MapPost("/{eventId:int}/tickets/{ticketId:int}/purchase", async (
-            int eventId,
-            int ticketId,
+        group.MapPost("/{eventId:guid}/tickets/{ticketId:guid}/purchase", async (
+            Guid eventId,
+            Guid ticketId,
             [FromBody] PurchaseTicketRequest request,
             [FromServices] ITicketService ticketService,
             CancellationToken ct) =>
@@ -70,9 +70,9 @@ public class TicketingEndpoints : ICarterModule
         .ProducesProblem(StatusCodes.Status409Conflict); // Concurrency failure
 
         // POST /api/events/{eventId}/tickets/{ticketId}/cancel
-        group.MapPost("/{eventId:int}/tickets/{ticketId:int}/cancel", async (
-            int eventId,
-            int ticketId,
+        group.MapPost("/{eventId:guid}/tickets/{ticketId:guid}/cancel", async (
+            Guid eventId,
+            Guid ticketId,
             [FromServices] ITicketService ticketService,
             CancellationToken ct) =>
         {

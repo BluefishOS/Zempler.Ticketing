@@ -4,7 +4,7 @@ namespace Zempler.Ticketing.Domain.Entities;
 
 public class Event
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public string Name { get; set; } = string.Empty;
     public DateTime Date { get; set; }
     public int TotalSeats { get; set; }

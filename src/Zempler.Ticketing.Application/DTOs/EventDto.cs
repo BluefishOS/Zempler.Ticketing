@@ -1,7 +1,7 @@
 namespace Zempler.Ticketing.Application.DTOs;
 
 public record EventDto(
-    int Id,
+    Guid Id,
     string Name,
     DateTime Date,
     int TotalTickets,

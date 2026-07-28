@@ -1,8 +1,8 @@
 namespace Zempler.Ticketing.Application.DTOs;
 
 public record TicketDto(
-    int Id,
-    int EventId,
+    Guid Id,
+    Guid EventId,
     string SeatNumber,
     decimal Price,
     string Status,
