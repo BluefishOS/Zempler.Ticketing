@@ -1,13 +1,10 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="src/Zempler.Ticketing.Api/Zempler.Ticketing.Api.csproj" />
-    <Project Path="src/Zempler.Ticketing.Application/Zempler.Ticketing.Application.csproj" />
-    <Project Path="src/Zempler.Ticketing.Domain/Zempler.Ticketing.Domain.csproj" />
-    <Project Path="src/Zempler.Ticketing.Infrastructure/Zempler.Ticketing.Infrastructure.csproj" />
     <Project Path="src/Zempler.Ticketing.Web/Zempler.Ticketing.Web.esproj">
       <Build />
       <Deploy />
     </Project>
+    <Project Path="src/Zempler.Ticketing/Zempler.Ticketing.csproj" />
 
   </Folder>
 </Solution>
