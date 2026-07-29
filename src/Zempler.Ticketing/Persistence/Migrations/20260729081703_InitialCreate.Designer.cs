@@ -11,7 +11,7 @@ using Zempler.Ticketing.Persistence;
 namespace Zempler.Ticketing.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260729000814_InitialCreate")]
+    [Migration("20260729081703_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -65,10 +65,9 @@ namespace Zempler.Ticketing.Persistence.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("SeatNumber")
-                        .IsRequired()
+                    b.Property<int>("SeatNumber")
                         .HasMaxLength(20)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");

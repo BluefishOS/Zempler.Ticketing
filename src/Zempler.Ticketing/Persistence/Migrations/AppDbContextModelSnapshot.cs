@@ -62,10 +62,9 @@ namespace Zempler.Ticketing.Persistence.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("SeatNumber")
-                        .IsRequired()
+                    b.Property<int>("SeatNumber")
                         .HasMaxLength(20)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");

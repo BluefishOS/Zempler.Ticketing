@@ -5,13 +5,23 @@ namespace Zempler.Ticketing.Persistence;
 
 public static class DbInitializer
 {
+    private static string[] eventNames = [
+        "Live Coding Lounge - Friday Night",
+        "Neon Horizons Music Festival",
+        "Silicon Valley Tech Summit",
+        "Urban Harvest Food & Wine Expo",
+        "Starlight Open-Air Cinema",
+        "Global Green Energy Conference",
+        "Midnight Comedy Gala",
+        "Artisan Makers Craft Fair",
+        "Retro Gaming Championship",
+        "Symphony Under the Stars",
+        "Coastal Marathon & Fitness Expo"];
+
     public static async Task SeedAsync(IServiceProvider serviceProvider)
     {
         using var scope = serviceProvider.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
-        // Ensure SQLite database and tables exist
-        //await context.Database.EnsureCreatedAsync();
 
         if (context.Database.IsRelational())
         {
@@ -21,28 +31,34 @@ public static class DbInitializer
         // Seed data if database is empty
         if (!await context.Events.AnyAsync())
         {
-            var sampleEvent = new Event
+            foreach (var name in eventNames)
             {
-                Name = "Live Coding Lounge - Friday Night",
-                Date = DateTime.UtcNow.AddDays(7),
-                TotalSeats = 50
-            };
-
-            // Pre-create 50 available tickets
-            for (int i = 0; i < 50; i++)
-            {
-                sampleEvent.Tickets.Add(new Ticket
+                var sampleEvent = new Event
                 {
-                    // Status is omitted because it defaults to TicketStatus.Available 
-                    // and its setter is private to protect domain logic.
-                    SeatNumber = $"Seat-{i + 1}",
-                    Price = 50.00m,
-                    RowVersion = Guid.NewGuid()
-                });
+                    Name = name,
+                    Date = DateTime.UtcNow.AddDays(new Random().Next(7, 60)),
+                    TotalSeats = new Random().Next(20, 50)
+                };
+
+                AddTicketstoEvent(sampleEvent);
+
+                context.Events.Add(sampleEvent);
             }
 
-            context.Events.Add(sampleEvent);
             await context.SaveChangesAsync();
+        }
+    }
+
+    private static void AddTicketstoEvent(Event ev)
+    {
+        for (int i = 1; i <= ev.TotalSeats; i++)
+        {
+            ev.Tickets.Add(new Ticket
+            {
+                SeatNumber = i,
+                Price = new Random().Next(150, 500),
+                RowVersion = Guid.NewGuid()
+            });
         }
     }
 }

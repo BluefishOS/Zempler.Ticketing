@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Zempler.Ticketing.Common.Exceptions;
 using Zempler.Ticketing.Domain.Entities;
 using Zempler.Ticketing.Domain.Enums;
+using Zempler.Ticketing.Features.Events;
 using Zempler.Ticketing.Features.Events.GetEvents;
 using Zempler.Ticketing.Persistence;
 
@@ -29,7 +30,7 @@ public class ReserveTicketEndpoint : ICarterModule
             var displayStatus = ticket.IsAvailable(now) && ticket.Status == TicketStatus.Reserved
                 ? TicketStatus.Available.ToString() : ticket.Status.ToString();
 
-            return Results.Ok(new TicketDto(ticket.Id, ticket.EventId, ticket.SeatNumber, ticket.Price, displayStatus, ticket.ReservedUntil, ticket.HolderName));
+            return Results.Ok(new TicketDto(ticket.Id, ticket.EventId, ticket.SeatNumber, ticket.Price, displayStatus, ticket.ReservedUntil));
         })
         .WithName("ReserveTicket")
         .WithTags("Tickets")

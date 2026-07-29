@@ -31,7 +31,7 @@ namespace Zempler.Ticketing.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     EventId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    SeatNumber = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
+                    SeatNumber = table.Column<int>(type: "INTEGER", maxLength: 20, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     HolderName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
                     Status = table.Column<int>(type: "INTEGER", nullable: false),

@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Zempler.Ticketing.Common.Exceptions;
 using Zempler.Ticketing.Domain.Entities;
 using Zempler.Ticketing.Domain.Enums;
-using Zempler.Ticketing.Features.Events.GetEvents;
 using Zempler.Ticketing.Persistence;
 
 namespace Zempler.Ticketing.Features.Events.GetEventById;
@@ -21,14 +20,32 @@ public class GetEventByIdEndpoint : ICarterModule
 
             var now = DateTime.UtcNow;
             var dto = new EventDto(
-                ev.Id, ev.Name, ev.Date, ev.TotalSeats,
-                ev.GetAvailableCount(now), ev.GetReservedCount(now), ev.GetSoldCount(),
-                ev.Tickets.Select(t => new TicketDto(
-                    t.Id, t.EventId, t.SeatNumber, t.Price,
-                    t.IsAvailable(now) && t.Status == TicketStatus.Reserved ? TicketStatus.Available.ToString() : t.Status.ToString(),
-                    t.ReservedUntil, t.HolderName
-                ))
-            );
+                            ev.Id,
+                            ev.Name,
+                            ev.Date,
+                            ev.TotalSeats,
+                            ev.GetAvailableCount(now),
+                            ev.GetReservedCount(now),
+                            ev.GetSoldCount(),
+                            ev.Tickets.OrderBy(t => t.SeatNumber)
+                                .Select(t =>
+                                {
+                                    var status = t.IsAvailable(now) && t.Status == TicketStatus.Reserved
+                                        ? TicketStatus.Available.ToString()
+                                        : t.Status.ToString();
+
+                                    var price = status == TicketStatus.Sold.ToString() ? 0m : t.Price;
+
+                                    return new TicketDto(
+                                        t.Id,
+                                        t.EventId,
+                                        t.SeatNumber,
+                                        price,
+                                        status,
+                                        t.ReservedUntil
+                                    );
+                                })
+                        );
 
             return Results.Ok(dto);
         })

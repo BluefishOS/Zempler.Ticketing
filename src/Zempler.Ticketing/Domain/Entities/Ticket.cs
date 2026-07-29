@@ -11,7 +11,7 @@ public class Ticket
     public Guid EventId { get; set; }
     public Event Event { get; set; } = null!;
 
-    public string SeatNumber { get; set; } = string.Empty;
+    public int SeatNumber { get; set; }
     public decimal Price { get; set; }
 
     public string? HolderName { get; private set; }

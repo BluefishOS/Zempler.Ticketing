@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Zempler.Ticketing.Common.Exceptions;
 using Zempler.Ticketing.Domain.Entities;
+using Zempler.Ticketing.Features.Events;
 using Zempler.Ticketing.Features.Events.GetEvents;
 using Zempler.Ticketing.Persistence;
 
@@ -24,7 +25,7 @@ public class PurchaseTicketEndpoint : ICarterModule
 
             logger.LogInformation("Ticket purchased for ticket with ID {TicketId}.", ticketId);
 
-            return Results.Ok(new TicketDto(ticket.Id, ticket.EventId, ticket.SeatNumber, ticket.Price, ticket.Status.ToString(), ticket.ReservedUntil, ticket.HolderName));
+            return Results.Ok(new TicketDto(ticket.Id, ticket.EventId, ticket.SeatNumber, ticket.Price, ticket.Status.ToString(), ticket.ReservedUntil));
         })
         .WithName("PurchaseTicket")
         .WithTags("Tickets")
