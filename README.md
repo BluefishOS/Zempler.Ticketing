@@ -56,3 +56,27 @@ npm run dev
 - Add Redis for read-heavy caching and faster event queries
 - Prepare the backend for horizontal scaling by keeping it stateless and sharing cache/data externally
 - Implement internationalization for static text directly in html tags
+
+## Screenshots
+
+Below are a few screenshots from the app. Full-size images are in the `screenshots/` folder.
+
+- Landing page
+
+![Landing](screenshots/Landing.png)
+
+- Event with reserved ticket
+
+![Event Landing With Reserved Ticket](screenshots/Event%20Landing%20With%20Reserved%20Ticket.png)
+
+- Reserve ticket flow
+
+![Reserve Ticket](screenshots/Reserve%20Ticket.png)
+
+- Make payment (mock)
+
+![Make Payment](screenshots/Make%20Payment.png)
+
+- Confirmation
+
+![Confirmation](screenshots/Confirmation.png)
