@@ -7,4 +7,7 @@
     <Project Path="src/Zempler.Ticketing/Zempler.Ticketing.csproj" />
 
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Zempler.Ticketing.Tests/Zempler.Ticketing.Tests.csproj" />
+  </Folder>
 </Solution>

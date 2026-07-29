@@ -57,6 +57,9 @@ if (app.Environment.IsDevelopment())
                .WithTheme(ScalarTheme.Purple)
                .WithDefaultHttpClient(ScalarTarget.Http, ScalarClient.Http11);
     });
+
+    // Auto-create SQLite database and seed initial test data
+    await DbInitializer.SeedAsync(app.Services);
 }
 
 app.UseHttpsRedirection();
@@ -64,9 +67,12 @@ app.UseHttpsRedirection();
 // Map Carter Endpoints
 app.MapCarter();
 
-// Auto-create SQLite database and seed initial test data
-await DbInitializer.SeedAsync(app.Services);
+
 
 app.UseSerilogRequestLogging();
 
 app.Run();
+
+
+
+public partial class Program { }
