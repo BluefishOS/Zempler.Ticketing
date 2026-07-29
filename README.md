@@ -80,3 +80,7 @@ Below are a few screenshots from the app. Full-size images are in the `screensho
 - Confirmation
 
 ![Confirmation](screenshots/Confirmation.png)
+
+- Scalar UI for API
+
+![Scalar](screenshots/Scalar%20UI%20for%20API.png)
