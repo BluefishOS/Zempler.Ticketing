@@ -8,10 +8,10 @@ public class GetEventsEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/events", async (AppDbContext context, ILogger<GetEventsEndpoint> logger, CancellationToken ct) =>
+        app.MapGet("/api/events", async (AppDbContext context, ILogger<GetEventsEndpoint> logger, TimeProvider timeProvider, CancellationToken ct) =>
         {
             var events = await context.Events.Include(e => e.Tickets).AsNoTracking().ToListAsync(ct);
-            var now = DateTime.UtcNow;
+            var now = timeProvider.GetUtcNow().DateTime;
 
             logger.LogInformation("Retrieved {EventCount} events. Processing DTO mapping.", events.Count);
 

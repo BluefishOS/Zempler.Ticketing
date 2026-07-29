@@ -310,6 +310,7 @@ export default function EventDetailClient({ event: initialEvent }: { event: IEve
                   variant="outline"
                   onClick={() => setDialogStep('details')}
                   disabled={loading}
+                  className="flex-1"
                 >
                   Back
                 </Button>

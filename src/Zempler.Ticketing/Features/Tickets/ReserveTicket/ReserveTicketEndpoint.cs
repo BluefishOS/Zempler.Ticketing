@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Zempler.Ticketing.Common.Exceptions;
 using Zempler.Ticketing.Domain.Entities;
 using Zempler.Ticketing.Domain.Enums;
-using Zempler.Ticketing.Features.Events;
-using Zempler.Ticketing.Features.Events.GetEvents;
+using Zempler.Ticketing.Features.Events.GetEventById;
 using Zempler.Ticketing.Persistence;
 
 namespace Zempler.Ticketing.Features.Tickets.ReserveTicket;
@@ -16,12 +15,12 @@ public class ReserveTicketEndpoint : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapPost("/api/events/{eventId:guid}/tickets/{ticketId:guid}/reserve", async (
-            Guid eventId, Guid ticketId, [FromBody] ReserveTicketRequest request, AppDbContext context, ILogger<ReserveTicketEndpoint> logger, CancellationToken ct) =>
+            Guid eventId, Guid ticketId, [FromBody] ReserveTicketRequest request, AppDbContext context, ILogger<ReserveTicketEndpoint> logger, TimeProvider timeProvider, CancellationToken ct) =>
         {
             var ticket = await context.Tickets.FirstOrDefaultAsync(t => t.Id == ticketId && t.EventId == eventId, ct)
                          ?? throw new NotFoundException(nameof(Ticket), ticketId);
 
-            var now = DateTime.UtcNow;
+            var now = timeProvider.GetUtcNow().DateTime;
             ticket.Reserve(request.HolderName, now);
             await context.SaveChangesAsync(ct);
 

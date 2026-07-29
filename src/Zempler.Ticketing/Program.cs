@@ -38,6 +38,8 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddSingleton(TimeProvider.System);
+
 var app = builder.Build();
 
 // Configure HTTP Request Pipeline

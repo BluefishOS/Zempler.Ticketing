@@ -4,7 +4,6 @@ using Zempler.Ticketing.Domain.Exceptions;
 
 namespace Zempler.Ticketing.Domain.Entities;
 
-
 public class Ticket
 {
     public Guid Id { get; set; } = Guid.NewGuid();
@@ -88,22 +87,6 @@ public class Ticket
         }
 
         Status = TicketStatus.Sold;
-        RowVersion = Guid.NewGuid(); // Force row version update for concurrency
-    }
-
-    /// <summary>
-    /// Cancels an active reservation and resets ticket state to Available.
-    /// </summary>
-    public void CancelReservation()
-    {
-        if (Status != TicketStatus.Reserved)
-        {
-            throw new DomainException("Only reserved tickets can have their reservation cancelled.");
-        }
-
-        Status = TicketStatus.Available;
-        HolderName = null;
-        ReservedAt = null;
         RowVersion = Guid.NewGuid(); // Force row version update for concurrency
     }
 }

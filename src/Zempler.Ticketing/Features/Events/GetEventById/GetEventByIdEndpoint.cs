@@ -11,14 +11,14 @@ public class GetEventByIdEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/events/{id:guid}", async (Guid id, AppDbContext context, ILogger<GetEventByIdEndpoint> logger, CancellationToken ct) =>
+        app.MapGet("/api/events/{id:guid}", async (Guid id, AppDbContext context, ILogger<GetEventByIdEndpoint> logger, TimeProvider timeProvider, CancellationToken ct) =>
         {
             var ev = await context.Events.Include(e => e.Tickets).AsNoTracking().FirstOrDefaultAsync(e => e.Id == id, ct)
                      ?? throw new NotFoundException(nameof(Event), id);
 
             logger.LogInformation("Event with ID {EventId} found.", id);
 
-            var now = DateTime.UtcNow;
+            var now = timeProvider.GetUtcNow().DateTime;
             var dto = new EventDto(
                             ev.Id,
                             ev.Name,

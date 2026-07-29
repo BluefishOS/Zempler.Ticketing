@@ -52,7 +52,7 @@ npm run dev
 ## Future improvements
 
 - Add authentication and user accounts
-- Add payment processing
 - Improve concurrency handling and cache invalidation
 - Add Redis for read-heavy caching and faster event queries
 - Prepare the backend for horizontal scaling by keeping it stateless and sharing cache/data externally
+- Implement internationalization for static text directly in html tags
