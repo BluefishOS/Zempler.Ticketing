@@ -1,10 +1,17 @@
 using Carter;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using Serilog;
 using Zempler.Ticketing.Common.Exceptions;
 using Zempler.Ticketing.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 // Add Database
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -59,5 +66,7 @@ app.MapCarter();
 
 // Auto-create SQLite database and seed initial test data
 await DbInitializer.SeedAsync(app.Services);
+
+app.UseSerilogRequestLogging();
 
 app.Run();

@@ -63,3 +63,5 @@ publish/
 *.db-wal
 *.sqlite
 *.sqlite3
+
+logs/

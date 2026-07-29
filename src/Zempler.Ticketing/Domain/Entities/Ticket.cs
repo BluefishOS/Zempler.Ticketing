@@ -84,7 +84,7 @@ public class Ticket
 
         if (!string.Equals(HolderName, holderName, StringComparison.OrdinalIgnoreCase))
         {
-            throw new HolderMismatchException($"Ticket was reserved by '{HolderName}', not '{holderName}'.");
+            throw new HolderMismatchException($"Ticket was reserved by some other person.");
         }
 
         Status = TicketStatus.Sold;

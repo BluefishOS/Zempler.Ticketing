@@ -13,7 +13,7 @@ public class PurchaseTicketEndpoint : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapPost("/api/events/{eventId:guid}/tickets/{ticketId:guid}/purchase", async (
-            Guid eventId, Guid ticketId, [FromBody] PurchaseTicketRequest request, AppDbContext context, CancellationToken ct) =>
+            Guid eventId, Guid ticketId, [FromBody] PurchaseTicketRequest request, AppDbContext context, ILogger<PurchaseTicketEndpoint> logger, CancellationToken ct) =>
         {
             var ticket = await context.Tickets.FirstOrDefaultAsync(t => t.Id == ticketId && t.EventId == eventId, ct)
                          ?? throw new NotFoundException(nameof(Ticket), ticketId);
@@ -21,6 +21,8 @@ public class PurchaseTicketEndpoint : ICarterModule
             var now = DateTime.UtcNow;
             ticket.Purchase(request.HolderName, now);
             await context.SaveChangesAsync(ct);
+
+            logger.LogInformation("Ticket purchased for ticket with ID {TicketId}.", ticketId);
 
             return Results.Ok(new TicketDto(ticket.Id, ticket.EventId, ticket.SeatNumber, ticket.Price, ticket.Status.ToString(), ticket.ReservedUntil, ticket.HolderName));
         })

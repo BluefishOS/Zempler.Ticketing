@@ -15,7 +15,7 @@ public class ReserveTicketEndpoint : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapPost("/api/events/{eventId:guid}/tickets/{ticketId:guid}/reserve", async (
-            Guid eventId, Guid ticketId, [FromBody] ReserveTicketRequest request, AppDbContext context, CancellationToken ct) =>
+            Guid eventId, Guid ticketId, [FromBody] ReserveTicketRequest request, AppDbContext context, ILogger<ReserveTicketEndpoint> logger, CancellationToken ct) =>
         {
             var ticket = await context.Tickets.FirstOrDefaultAsync(t => t.Id == ticketId && t.EventId == eventId, ct)
                          ?? throw new NotFoundException(nameof(Ticket), ticketId);
@@ -23,6 +23,8 @@ public class ReserveTicketEndpoint : ICarterModule
             var now = DateTime.UtcNow;
             ticket.Reserve(request.HolderName, now);
             await context.SaveChangesAsync(ct);
+
+            logger.LogInformation("Ticket reserved for ticket with ID {TicketId}.", ticketId);
 
             var displayStatus = ticket.IsAvailable(now) && ticket.Status == TicketStatus.Reserved
                 ? TicketStatus.Available.ToString() : ticket.Status.ToString();
