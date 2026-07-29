@@ -1,6 +1,6 @@
 import { IEventDto, IEventInfoDto, ITicketDto } from '@/types/ticketing';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'https://localhost:5001/api';
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 export async function getEvents(): Promise<IEventInfoDto[]> {
   const res = await fetch(`${API_BASE}/events`, { cache: 'no-store' });
