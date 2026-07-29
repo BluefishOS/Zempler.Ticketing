@@ -17,13 +17,13 @@ public class EventDomainTests
             Tickets =
             [
                 // Ticket 1: Available (default)
-                new() { SeatNumber = "A-1" },
+                new() { SeatNumber = 1 },
                 
                 // Ticket 2: Reserved, but expired (should be counted as available)
-                new() { SeatNumber = "A-2" }, // Will reserve with old timestamp
+                new() { SeatNumber = 2 }, // Will reserve with old timestamp
                 
                 // Ticket 3: Reserved and still active (should NOT be counted as available)
-                new() { SeatNumber = "A-3" }  // Will reserve with current timestamp
+                new() { SeatNumber = 3 }  // Will reserve with current timestamp
             ]
         };
 
@@ -46,8 +46,8 @@ public class EventDomainTests
             TotalSeats = 2,
             Tickets =
             [
-                new() { SeatNumber = "B-1" },
-                new() { SeatNumber = "B-2" }
+                new() { SeatNumber = 1 },
+                new() { SeatNumber = 2 }
             ]
         };
 
@@ -69,8 +69,8 @@ public class EventDomainTests
             TotalSeats = 2,
             Tickets =
             [
-                new() { SeatNumber = "C-1" },
-                new() { SeatNumber = "C-2" }
+                new() { SeatNumber = 1 },
+                new() { SeatNumber = 2 }
             ]
         };
 

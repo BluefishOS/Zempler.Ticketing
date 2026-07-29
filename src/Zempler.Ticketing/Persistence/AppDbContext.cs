@@ -16,4 +16,21 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         // Apply entity configurations from current assembly
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        UpdateConcurrencyTokens();
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
+    private void UpdateConcurrencyTokens()
+    {
+        var entries = ChangeTracker.Entries<Ticket>()
+            .Where(e => e.State == EntityState.Modified);
+
+        foreach (var entry in entries)
+        {
+            entry.Entity.RowVersion = Guid.NewGuid();
+        }
+    }
 }

@@ -66,11 +66,11 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
             Name = "GetEvents Concert",
             Date = DateTime.UtcNow.AddDays(5),
             TotalSeats = 2,
-            Tickets = new List<Ticket>
-            {
-                new Ticket { Id = Guid.Parse("12222222-2222-2222-2222-222222222221"), SeatNumber = "A-1", Price = 100.00m, RowVersion = Guid.NewGuid() },
-                new Ticket { Id = Guid.Parse("12222222-2222-2222-2222-222222222222"), SeatNumber = "A-2", Price = 100.00m, RowVersion = Guid.NewGuid() }
-            }
+            Tickets =
+            [
+                new Ticket { Id = Guid.Parse("12222222-2222-2222-2222-222222222221"), SeatNumber = 1, Price = 100.00m, RowVersion = Guid.NewGuid() },
+                new Ticket { Id = Guid.Parse("12222222-2222-2222-2222-222222222222"), SeatNumber = 2, Price = 100.00m, RowVersion = Guid.NewGuid() }
+            ]
         };
 
         // 2. Event dedicated to ReserveTicket test
@@ -80,10 +80,10 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
             Name = "Reserve Concert",
             Date = DateTime.UtcNow.AddDays(5),
             TotalSeats = 1,
-            Tickets = new List<Ticket>
-            {
-                new Ticket { Id = Guid.Parse("22222222-2222-2222-2222-222222222221"), SeatNumber = "B-1", Price = 100.00m, RowVersion = Guid.NewGuid() }
-            }
+            Tickets =
+            [
+                new Ticket { Id = Guid.Parse("22222222-2222-2222-2222-222222222221"), SeatNumber = 1, Price = 100.00m, RowVersion = Guid.NewGuid() }
+            ]
         };
 
         // 3. Event dedicated to Concurrency test
@@ -95,8 +95,8 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>, IAsyn
             TotalSeats = 2,
             Tickets = new List<Ticket>
             {
-                new Ticket { Id = Guid.Parse("32222222-2222-2222-2222-222222222221"), SeatNumber = "C-1", Price = 100.00m, RowVersion = Guid.NewGuid() },
-                new Ticket { Id = Guid.Parse("32222222-2222-2222-2222-222222222222"), SeatNumber = "C-2", Price = 100.00m, RowVersion = Guid.NewGuid() }
+                new Ticket { Id = Guid.Parse("32222222-2222-2222-2222-222222222221"), SeatNumber = 1, Price = 100.00m, RowVersion = Guid.NewGuid() },
+                new Ticket { Id = Guid.Parse("32222222-2222-2222-2222-222222222222"), SeatNumber = 2, Price = 100.00m, RowVersion = Guid.NewGuid() }
             }
         };
 

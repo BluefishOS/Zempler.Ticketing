@@ -63,7 +63,6 @@ public class Ticket
         Status = TicketStatus.Reserved;
         HolderName = holderName;
         ReservedAt = utcNow;
-        RowVersion = Guid.NewGuid(); // Force row version update for concurrency
     }
 
     /// <summary>
@@ -87,6 +86,5 @@ public class Ticket
         }
 
         Status = TicketStatus.Sold;
-        RowVersion = Guid.NewGuid(); // Force row version update for concurrency
     }
 }

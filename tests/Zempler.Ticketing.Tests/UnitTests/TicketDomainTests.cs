@@ -13,7 +13,7 @@ public class TicketDomainTests
         // Arrange
         var ticket = new Ticket
         {
-            SeatNumber = "B-12",
+            SeatNumber = 12,
             Price = 75.00m,
         };
         var now = DateTime.UtcNow;
@@ -33,7 +33,7 @@ public class TicketDomainTests
         // Arrange
         var ticket = new Ticket
         {
-            SeatNumber = "B-12",
+            SeatNumber = 12,
             Price = 75.00m
         };
         var now = DateTime.UtcNow;
@@ -53,7 +53,7 @@ public class TicketDomainTests
         // Arrange
         var ticket = new Ticket
         {
-            SeatNumber = "B-12",
+            SeatNumber = 12,
             Price = 75.00m
         };
         var now = DateTime.UtcNow;
@@ -72,7 +72,7 @@ public class TicketDomainTests
         // Arrange
         var ticket = new Ticket
         {
-            SeatNumber = "B-12",
+            SeatNumber = 12,
             Price = 75.00m
         };
         var now = DateTime.UtcNow;
@@ -91,7 +91,7 @@ public class TicketDomainTests
         // Arrange
         var ticket = new Ticket
         {
-            SeatNumber = "B-12",
+            SeatNumber = 12,
             Price = 75.00m
         };
         var reservationTime = DateTime.UtcNow.AddMinutes(-15); // 15 minutes ago

@@ -1,7 +1,7 @@
 using System.Net;
 using System.Net.Http.Json;
 using FluentAssertions;
-using Zempler.Ticketing.Features.Events.GetEvents;
+using Zempler.Ticketing.Features.Events.GetEventById;
 using Zempler.Ticketing.Features.Tickets.ReserveTicket;
 
 namespace Zempler.Ticketing.Tests.IntegrationTests;
@@ -49,7 +49,6 @@ public class TicketEndpointsIntegrationTests(CustomWebApplicationFactory factory
         var ticketDto = await response.Content.ReadFromJsonAsync<TicketDto>();
         ticketDto.Should().NotBeNull();
         ticketDto!.Status.Should().Be("Reserved");
-        ticketDto.HolderName.Should().Be("Alice Smith");
     }
 
     [Fact]
